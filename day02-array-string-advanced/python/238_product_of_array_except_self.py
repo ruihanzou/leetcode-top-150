@@ -88,6 +88,7 @@ class Solution:
         # 初始化答案数组, 因为 answer[i] 是 i 左边的所有元素之积, 所以是 1
         answer = [1] * n
 
+        # range(1, n) 表示从 1 到 n-1, 因为 i 是当前元素, 所以是 i - 1
         for i in range(1, n):
             # 计算左积 注意这里是 i - 1 因为 i 是当前元素, 因为answer[i] 是 i 左边的所有元素之积, 所以是 i - 1
             answer[i] = answer[i - 1] * nums[i - 1] 

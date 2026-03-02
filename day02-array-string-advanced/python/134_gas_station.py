@@ -94,12 +94,14 @@ class Solution:
     """
     def canCompleteCircuit_greedy(self, gas: List[int], cost: List[int]) -> int:
         n = len(gas)
-        total = 0
-        current = 0
-        start = 0
+        total = 0 # 总油量
+        current = 0 # 当前油量
+        start = 0 # 起点    
+        # 遍历每个加油站
         for i in range(n):
+            # 计算当前加油站的油量差
             diff = gas[i] - cost[i]
-            total += diff
+            total += diff # 更新总油量
             current += diff
             if current < 0:
                 start = i + 1
