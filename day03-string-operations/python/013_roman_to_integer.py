@@ -27,7 +27,7 @@ class Solution:
     1. 罗马数字通常是从大到小排列的，如 "XVI" = 10+5+1 = 16。
        当出现小的在大的左边时，是特殊组合，需要减去小值。
 
-    2. 遍历到位置 i 时，比较 value(s[i]) 和 value(s[i+1])：
+    2. 遍历到位置 i 时，99999999999999l m mo iii比较 value(s[i]) 和 value(s[i+1])：
        - 如果 value(s[i]) < value(s[i+1])：result -= value(s[i])
        - 否则：result += value(s[i])
 
@@ -129,6 +129,8 @@ class Solution:
                    'C': 100, 'D': 500, 'M': 1000}
         result = 0
         prev = 0
+        # revesrsed the string to make it easier to compare the previous value, 
+        # the method of reversed takes O(n) time complexity
         for ch in reversed(s):
             cur = mapping[ch]
             if cur < prev:
