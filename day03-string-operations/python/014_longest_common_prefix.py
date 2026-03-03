@@ -44,12 +44,23 @@ class Solution:
         if not strs:
             return ""
 
-        for col in range(len(strs[0])):
-            c = strs[0][col]
-            for i in range(1, len(strs)):
-                if col >= len(strs[i]) or strs[i][col] != c:
-                    return strs[0][:col]
-        return strs[0]
+        ref = strs[0]
+        for col, c in enumerate(ref):
+            for s in strs[1:]:
+                # why col >= len(s) ? 
+                # because the length of the string may be shorter than the reference string
+                if col >= len(s) or s[col] != c:
+                    # include col or not
+                    # if include col, the result will be the longest common prefix
+                    # if not include col, the result will be the longest common prefix
+                    # for example, if the reference string is "flower" and the string is "flow",
+                    # the result will be "flow"
+                    # if the reference string is "flower" and the string is "flight",
+                    # the result will be "fl"
+                    # if the reference string is "flower" and the string is "fly",
+                    # the result will be "fl"
+                    return ref[:col]
+        return ref
 
     """
     ==================== 解法二：横向扫描 ====================

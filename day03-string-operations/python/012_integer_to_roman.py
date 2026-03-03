@@ -59,6 +59,7 @@ class Solution:
             while num >= val:
                 result.append(sym)
                 num -= val
+        # join the result list into a string
         return ''.join(result)
 
     """

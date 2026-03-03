@@ -44,12 +44,12 @@ class Solution:
         if not strs:
             return ""
 
-        for col in range(len(strs[0])):
-            c = strs[0][col]
-            for i in range(1, len(strs)):
-                if col >= len(strs[i]) or strs[i][col] != c:
-                    return strs[0][:col]
-        return strs[0]
+        ref = strs[0]
+        for col, c in enumerate(ref):
+            for s in strs[1:]:
+                if col >= len(s) or s[col] != c:
+                    return ref[:col]
+        return ref
 
     """
     ==================== 解法二：横向扫描 ====================
