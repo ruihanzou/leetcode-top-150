@@ -5,6 +5,13 @@
 
 ---
 
+## 刷题模式选择
+
+- **按时间线刷题**: 建议第一次刷题严格按照下面的 `Day 1 → Day 30` 顺序完成，循序渐进覆盖所有题型。
+- **按技能刷题**: 如果你想集中训练某一类技能（例如 Sliding Window、Two Pointers、DP），可以参考仓库中的 `PLAN_BY_SKILL.md`，其中按算法/思维模式重新整理了同一批 Top 150 题目，并提供「32 天按技能刷题表」及高效刷题指南。
+
+---
+
 ## 进度总览
 
 | 天数 | 主题 | 题数 | 状态 |
@@ -270,6 +277,7 @@
 
 | # | 题目 | 难度 | 关键技巧 |
 |---|------|------|----------|
+| 173 | Binary Search Tree Iterator | Medium | 中序遍历 + 迭代器设计 |
 | 230 | Kth Smallest Element in a BST | Medium | 中序遍历 |
 | 98 | Validate Binary Search Tree | Medium | 中序/递归 + 范围 |
 | 200 | Number of Islands | Medium | DFS/BFS |
