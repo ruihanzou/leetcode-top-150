@@ -136,3 +136,46 @@ class Solution:
                 return False
             prev = indices[pos]
         return True
+
+
+class SubsequenceChecker:
+    """
+    ==================== 进阶：大量 s 查询时的优化 ====================
+
+    【使用场景】
+    t 固定，需要依次判断 s1, s2, ..., sk（k >= 10^9）是否为 t 的子序列。
+
+    【核心思路】
+    1. 构造函数中对 t 做一次 O(n) 预处理，建立「字符 → 出现位置列表」的索引
+    2. 每个 is_subsequence(s) 查询只需 O(m·log n)，m 为 s 的长度
+
+    【与单次双指针的对比】
+    - 双指针：每次查询 O(n)，k 次共 O(k·n) —— t 每次都要完整遍历
+    - 预处理+二分：预处理 O(n) 一次，k 次查询共 O(k·m·log n)
+      当 k 很大时，避免重复扫描 t，查询只依赖 s 的长度
+
+    【用法示例】
+      checker = SubsequenceChecker("ahbgdc")
+      checker.is_subsequence("abc")   # True
+      checker.is_subsequence("axc")   # False
+      # 可重复调用成千上万次，无需重新处理 t
+    """
+    def __init__(self, t: str):
+        self.char_indices: dict[str, list[int]] = defaultdict(list)
+        for i, c in enumerate(t):
+            self.char_indices[c].append(i)
+
+    def is_subsequence(self, s: str) -> bool:
+        prev = -1
+        for c in s:
+            if c not in self.char_indices:
+                return False
+            indices = self.char_indices[c]
+            # binary search to find the first index greater than prev
+            # if not found, return the index of the first element greater than prev
+            # for example, if prev is 2, and indices is [1, 3, 5], return 3
+            pos = bisect_left(indices, prev + 1)
+            if pos >= len(indices):
+                return False
+            prev = indices[pos]
+        return True

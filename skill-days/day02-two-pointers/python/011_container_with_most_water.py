@@ -14,6 +14,12 @@ LeetCode 11. Container With Most Water
   容器宽度为 9-2=7，高度取较短的 7，面积 = 7 × 7 = 49。
 示例 2：height = [1,1] → 输出 1
 
+【与接雨水 (LeetCode 42) 的区别】
+- 本题：只需选两条线作为容器边界，中间柱子完全不影响水量。
+  水量 = min(左边界高, 右边界高) × 宽度，与中间有没有、有多高的柱子无关。
+- 接雨水：要计算所有柱子之间的积水总量，每根柱子的高度都会影响 trapped 的水量。
+  需要逐位置考虑左右两侧最大高度。
+
 【拓展练习】
 1. LeetCode 42. Trapping Rain Water —— 接雨水问题，思路类似但更复杂
 2. LeetCode 84. Largest Rectangle in Histogram —— 柱状图中最大矩形

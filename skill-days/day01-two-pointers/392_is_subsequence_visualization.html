@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>392. Is Subsequence - 双指针可视化</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;600&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      color: #e8e8e8;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #00d9ff;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+    .input-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .field {
+      flex: 1;
+      min-width: 200px;
+    }
+    .field label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: #94a3b8;
+    }
+    .field input {
+      width: 100%;
+      padding: 0.6rem 0.9rem;
+      font-size: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: #e8e8e8;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: #00d9ff;
+      box-shadow: 0 0 0 2px rgba(0,217,255,0.2);
+    }
+    .btn-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    button {
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #00d9ff, #0099cc);
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #e8e8e8;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.15); }
+    .btn-secondary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .visualization {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .string-row {
+      margin-bottom: 0.5rem;
+    }
+    .string-row:last-child { margin-bottom: 0; }
+    .string-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-bottom: 0.25rem;
+    }
+    .chars {
+      display: flex;
+      gap: 2px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    .char {
+      width: 2.2rem;
+      height: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .char.idx-i {
+      background: linear-gradient(135deg, #00d9ff44, #00d9ff88);
+      border: 2px solid #00d9ff;
+      box-shadow: 0 0 12px rgba(0,217,255,0.4);
+    }
+    .char.idx-j {
+      background: linear-gradient(135deg, #ff6b6b44, #ff6b6b88);
+      border: 2px solid #ff6b6b;
+      box-shadow: 0 0 12px rgba(255,107,107,0.4);
+    }
+    .char.matched {
+      background: rgba(0, 255, 136, 0.25);
+      border: 1px solid #00ff88;
+      color: #00ff88;
+    }
+    .char.unmatched { opacity: 0.5; }
+    .pointers {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .ptr {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .ptr-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .ptr-i .ptr-dot { background: #00d9ff; }
+    .ptr-j .ptr-dot { background: #ff6b6b; }
+    .log {
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .log-entry {
+      padding: 0.25rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .log-entry:last-child { border-bottom: none; }
+    .log-match { color: #00ff88; }
+    .log-nomatch { color: #ff6b6b; }
+    .log-done { color: #00d9ff; font-weight: 600; }
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .result.true { background: rgba(0,255,136,0.2); color: #00ff88; }
+    .result.false { background: rgba(255,107,107,0.2); color: #ff6b6b; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>392. Is Subsequence — 双指针可视化</h1>
+    <p class="subtitle">当 s[i] == t[j] 时 i,j 都前进；否则只有 j 前进</p>
+
+    <div class="input-group">
+      <div class="field">
+        <label>s (要匹配的子序列)</label>
+        <input type="text" id="inputS" value="abc" placeholder="例如 abc">
+      </div>
+      <div class="field">
+        <label>t (主字符串)</label>
+        <input type="text" id="inputT" value="ahbgdc" placeholder="例如 ahbgdc">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" onclick="run()">▶ 开始 / 重置</button>
+      <button class="btn-secondary" id="btnNext" onclick="step()" disabled>下一步</button>
+    </div>
+
+    <div class="visualization">
+      <div class="string-row">
+        <div class="string-label">s (指针 i)</div>
+        <div class="chars" id="charsS"></div>
+      </div>
+      <div class="string-row">
+        <div class="string-label">t (指针 j)</div>
+        <div class="chars" id="charsT"></div>
+      </div>
+      <div class="pointers">
+        <div class="ptr ptr-i"><span class="ptr-dot"></span> i = <span id="valI">0</span></div>
+        <div class="ptr ptr-j"><span class="ptr-dot"></span> j = <span id="valJ">0</span></div>
+      </div>
+      <div class="log" id="log"></div>
+      <div class="result" id="result" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script>
+    let s = '', t = '';
+    let i = 0, j = 0;
+    let done = false;
+    let steps = [];
+
+    function run() {
+      s = document.getElementById('inputS').value;
+      t = document.getElementById('inputT').value;
+      i = 0;
+      j = 0;
+      done = false;
+      steps = [];
+
+      document.getElementById('btnNext').disabled = false;
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('log').innerHTML = '';
+
+      buildChars();
+      updateLog('点击「下一步」开始');
+    }
+
+    function buildChars() {
+      const cs = document.getElementById('charsS');
+      const ct = document.getElementById('charsT');
+      cs.innerHTML = '';
+      ct.innerHTML = '';
+
+      for (let k = 0; k < s.length; k++) {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = s[k];
+        span.dataset.idx = k;
+        cs.appendChild(span);
+      }
+      for (let k = 0; k < t.length; k++) {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = t[k];
+        span.dataset.idx = k;
+        ct.appendChild(span);
+      }
+    }
+
+    function highlight() {
+      document.querySelectorAll('#charsS .char').forEach((el, k) => {
+        el.classList.remove('idx-i', 'matched', 'unmatched');
+        if (k === i && !done) el.classList.add('idx-i');
+        else if (k < i) el.classList.add('matched');
+        else if (k > i || done) el.classList.add('unmatched');
+      });
+      document.querySelectorAll('#charsT .char').forEach((el, k) => {
+        el.classList.remove('idx-j', 'unmatched');
+        if (k === j && !done) el.classList.add('idx-j');
+        else if (k > j || done) el.classList.add('unmatched');
+      });
+      document.getElementById('valI').textContent = i;
+      document.getElementById('valJ').textContent = j;
+    }
+
+    function updateLog(msg, type = '') {
+      const log = document.getElementById('log');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry ' + type;
+      entry.textContent = msg;
+      log.appendChild(entry);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function showResult(isSubseq) {
+      const el = document.getElementById('result');
+      el.style.display = 'block';
+      el.className = 'result ' + (isSubseq ? 'true' : 'false');
+      el.textContent = isSubseq ? '✓ true — s 是 t 的子序列' : '✗ false — s 不是 t 的子序列';
+    }
+
+    function step() {
+      if (done) return;
+
+      if (i >= s.length || j >= t.length) {
+        const isSubseq = i === s.length;
+        updateLog(`i=${i}, j=${j} → 结束。i == len(s) ? ${isSubseq}`, 'log-done');
+        showResult(isSubseq);
+        done = true;
+        document.getElementById('btnNext').disabled = true;
+        highlight();
+        return;
+      }
+
+      const si = s[i], tj = t[j];
+      if (si === tj) {
+        updateLog(`i=${i},j=${j}: s['${si}'] == t['${tj}'] ✓ → i++, j++`);
+        i++;
+        j++;
+      } else {
+        updateLog(`i=${i},j=${j}: s['${si}'] != t['${tj}'] → j++`, 'log-nomatch');
+        j++;
+      }
+      highlight();
+    }
+
+    run();
+  </script>
+</body>
+</html>

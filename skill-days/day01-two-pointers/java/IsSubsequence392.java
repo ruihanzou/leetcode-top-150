@@ -143,3 +143,49 @@ class IsSubsequence392 {
         return true;
     }
 }
+
+/**
+ * ==================== 进阶：大量 s 查询时的优化 ====================
+ *
+ * 【使用场景】
+ * t 固定，需要依次判断 s1, s2, ..., sk（k >= 10^9）是否为 t 的子序列。
+ *
+ * 【核心思路】
+ * 1. 构造函数中对 t 做一次 O(n) 预处理，建立「字符 → 出现位置列表」的索引
+ * 2. 每个 isSubsequence(s) 查询只需 O(m·log n)，m 为 s 的长度
+ *
+ * 【与单次双指针的对比】
+ * - 双指针：每次查询 O(n)，k 次共 O(k·n) —— t 每次都要完整遍历
+ * - 预处理+二分：预处理 O(n) 一次，k 次查询共 O(k·m·log n)
+ *
+ * 【用法示例】
+ *   SubsequenceChecker checker = new SubsequenceChecker("ahbgdc");
+ *   checker.isSubsequence("abc");   // true
+ *   checker.isSubsequence("axc");   // false
+ */
+class SubsequenceChecker {
+    private final Map<Character, List<Integer>> charIndices;
+
+    public SubsequenceChecker(String t) {
+        charIndices = new HashMap<>();
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            charIndices.computeIfAbsent(c, k -> new ArrayList<>()).add(i);
+        }
+    }
+
+    public boolean isSubsequence(String s) {
+        int prev = -1;
+        for (char c : s.toCharArray()) {
+            List<Integer> indices = charIndices.get(c);
+            if (indices == null) return false;
+
+            int pos = Collections.binarySearch(indices, prev + 1);
+            if (pos < 0) pos = -pos - 1;
+            if (pos >= indices.size()) return false;
+
+            prev = indices.get(pos);
+        }
+        return true;
+    }
+}
