@@ -169,11 +169,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                                  | 难度   | Notes    |
 | --- | ----------------------------------- | ---- | -------- |
-| 88  | Merge Sorted Array                  | Easy | 逆向双指针归并  |
-| 27  | Remove Element                      | Easy | 快慢指针删除元素 |
-| 26  | Remove Duplicates from Sorted Array | Easy | 快慢指针去重   |
-| 125 | Valid Palindrome                    | Easy | 对撞指针     |
-| 392 | Is Subsequence                      | Easy | 双指针遍历    |
+| 88  | 合并两个有序数组 Merge Sorted Array                  | Easy | 逆向双指针归并  |
+| 27  | 移除元素 Remove Element                      | Easy | 快慢指针删除元素 |
+| 26  | 删除有序数组中的重复项 Remove Duplicates from Sorted Array | Easy | 快慢指针去重   |
+| 125 | 验证回文串 Valid Palindrome                    | Easy | 对撞指针     |
+| 392 | 判断子序列 Is Subsequence                      | Easy | 双指针遍历    |
 
 
 ---
@@ -196,11 +196,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #      | 题目                                     | 难度     | Notes     |
 | ------ | -------------------------------------- | ------ | --------- |
-| 80     | Remove Duplicates from Sorted Array II | Medium | 去重 + 计数控制 |
-| 167    | Two Sum II - Input Array Is Sorted     | Medium | 有序数组对撞指针  |
-| 11     | Container With Most Water              | Medium | 对撞指针 + 贪心 |
-| 15     | 3Sum                                   | Medium | 排序 + 双指针  |
-| **42** | Trapping Rain Water                    | Hard   | 双指针/单调栈   |
+| 80     | 删除有序数组中的重复项 II Remove Duplicates from Sorted Array II | Medium | 去重 + 计数控制 |
+| 167    | 两数之和 II - 输入有序数组 Two Sum II - Input Array Is Sorted     | Medium | 有序数组对撞指针  |
+| 11     | 盛最多水的容器 Container With Most Water              | Medium | 对撞指针 + 贪心 |
+| 15     | 三数之和 3Sum                                   | Medium | 排序 + 双指针  |
+| **42** | 接雨水 Trapping Rain Water                    | Hard   | 双指针/单调栈   |
 
 
 ---
@@ -223,10 +223,10 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #      | 题目                                             | 难度     | Notes       |
 | ------ | ---------------------------------------------- | ------ | ----------- |
-| 219    | Contains Duplicate II                          | Easy   | 滑动窗口 + 哈希集合 |
-| 209    | Minimum Size Subarray Sum                      | Medium | 最基础可变窗口     |
-| 3      | Longest Substring Without Repeating Characters | Medium | 集合去重窗口      |
-| **76** | Minimum Window Substring                       | Hard   | 字符需求计数窗口    |
+| 219    | 存在重复元素 II Contains Duplicate II                          | Easy   | 滑动窗口 + 哈希集合 |
+| 209    | 长度最小的子数组 Minimum Size Subarray Sum                      | Medium | 最基础可变窗口     |
+| 3      | 无重复字符的最长子串 Longest Substring Without Repeating Characters | Medium | 集合去重窗口      |
+| **76** | 最小覆盖子串 Minimum Window Substring                       | Hard   | 字符需求计数窗口    |
 
 
 ---
@@ -249,10 +249,10 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #      | 题目                                        | 难度     | Notes       |
 | ------ | ----------------------------------------- | ------ | ----------- |
-| **30** | Substring with Concatenation of All Words | Hard   | 固定窗口 + 词频哈希 |
-| 121    | Best Time to Buy and Sell Stock           | Easy   | 一次遍历维护最小价   |
-| 122    | Best Time to Buy and Sell Stock II        | Medium | 贪心累加所有上升段   |
-| 55     | Jump Game                                 | Medium | 可达最远位置贪心    |
+| **30** | 串联所有单词的子串 Substring with Concatenation of All Words | Hard   | 固定窗口 + 词频哈希 |
+| 121    | 买卖股票的最佳时机 Best Time to Buy and Sell Stock           | Easy   | 一次遍历维护最小价   |
+| 122    | 买卖股票的最佳时机 II Best Time to Buy and Sell Stock II        | Medium | 贪心累加所有上升段   |
+| 55     | 跳跃游戏 Jump Game                                 | Medium | 可达最远位置贪心    |
 
 
 ---
@@ -275,11 +275,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                           | 难度     | Notes       |
 | --- | ---------------------------- | ------ | ----------- |
-| 45  | Jump Game II                 | Medium | 区间贪心/BFS 思路 |
-| 189 | Rotate Array                 | Medium | 三次翻转        |
-| 238 | Product of Array Except Self | Medium | 前缀积 + 后缀积   |
-| 134 | Gas Station                  | Medium | 总量判断 + 起点贪心 |
-| 274 | H-Index                      | Medium | 排序/计数排序     |
+| 45  | 跳跃游戏 II Jump Game II                 | Medium | 区间贪心/BFS 思路 |
+| 189 | 轮转数组 Rotate Array                 | Medium | 三次翻转        |
+| 238 | 除自身以外数组的乘积 Product of Array Except Self | Medium | 前缀积 + 后缀积   |
+| 134 | 加油站 Gas Station                  | Medium | 总量判断 + 起点贪心 |
+| 274 | H 指数 H-Index                      | Medium | 排序/计数排序     |
 
 
 ---
@@ -302,11 +302,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #       | 题目                                                 | 难度   | Notes       |
 | ------- | -------------------------------------------------- | ---- | ----------- |
-| **135** | Candy                                              | Hard | 左右两遍贪心分配    |
-| 58      | Length of Last Word                                | Easy | 基础字符串遍历     |
-| 14      | Longest Common Prefix                              | Easy | 纵向比较前缀      |
-| 28      | Find the Index of the First Occurrence in a String | Easy | 子串匹配/KMP 入门 |
-| 13      | Roman to Integer                                   | Easy | 映射表 + 左减规则  |
+| **135** | 分发糖果 Candy                                              | Hard | 左右两遍贪心分配    |
+| 58      | 最后一个单词的长度 Length of Last Word                                | Easy | 基础字符串遍历     |
+| 14      | 最长公共前缀 Longest Common Prefix                              | Easy | 纵向比较前缀      |
+| 28      | 找出字符串中第一个匹配项的下标 Find the Index of the First Occurrence in a String | Easy | 子串匹配/KMP 入门 |
+| 13      | 罗马数字转整数 Roman to Integer                                   | Easy | 映射表 + 左减规则  |
 
 
 ---
@@ -329,11 +329,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #      | 题目                        | 难度     | Notes          |
 | ------ | ------------------------- | ------ | -------------- |
-| 169    | Majority Element          | Easy   | Boyer-Moore 投票 |
-| 151    | Reverse Words in a String | Medium | 分割 + 翻转构造      |
-| 6      | Zigzag Conversion         | Medium | 字符串构造模拟        |
-| 12     | Integer to Roman          | Medium | 贪心 + 映射表       |
-| **68** | Text Justification        | Hard   | 字符串格式化模拟       |
+| 169    | 多数元素 Majority Element          | Easy   | Boyer-Moore 投票 |
+| 151    | 反转字符串中的单词 Reverse Words in a String | Medium | 分割 + 翻转构造      |
+| 6      | Z 字形变换 Zigzag Conversion         | Medium | 字符串构造模拟        |
+| 12     | 整数转罗马数字 Integer to Roman          | Medium | 贪心 + 映射表       |
+| **68** | 文本左右对齐 Text Justification        | Hard   | 字符串格式化模拟       |
 
 
 ---
@@ -357,11 +357,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                 | 难度   | Notes   |
 | --- | ------------------ | ---- | ------- |
-| 383 | Ransom Note        | Easy | 字符计数    |
-| 242 | Valid Anagram      | Easy | 字符计数    |
-| 205 | Isomorphic Strings | Easy | 双向映射    |
-| 290 | Word Pattern       | Easy | 双向映射    |
-| 1   | Two Sum            | Easy | 哈希表一遍扫描 |
+| 383 | 赎金信 Ransom Note        | Easy | 字符计数    |
+| 242 | 有效的字母异位词 Valid Anagram      | Easy | 字符计数    |
+| 205 | 同构字符串 Isomorphic Strings | Easy | 双向映射    |
+| 290 | 单词规律 Word Pattern       | Easy | 双向映射    |
+| 1   | 两数之和 Two Sum            | Easy | 哈希表一遍扫描 |
 
 
 ---
@@ -385,11 +385,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #       | 题目                             | 难度     | Notes      |
 | ------- | ------------------------------ | ------ | ---------- |
-| 202     | Happy Number                   | Easy   | 快慢指针/哈希集合  |
-| 49      | Group Anagrams                 | Medium | 排序键/计数键分组  |
-| 128     | Longest Consecutive Sequence   | Medium | 集合 + 起点判断  |
-| 380     | `Insert Delete GetRandom O(1)` | Medium | 哈希表 + 动态数组 |
-| **149** | Max Points on a Line           | Hard   | 斜率哈希       |
+| 202     | 快乐数 Happy Number                   | Easy   | 快慢指针/哈希集合  |
+| 49      | 字母异位词分组 Group Anagrams                 | Medium | 排序键/计数键分组  |
+| 128     | 最长连续序列 Longest Consecutive Sequence   | Medium | 集合 + 起点判断  |
+| 380     | O(1) 时间插入、删除和获取随机元素 Insert Delete GetRandom O(1) | Medium | 哈希表 + 动态数组 |
+| **149** | 直线上最多的点数 Max Points on a Line           | Hard   | 斜率哈希       |
 
 
 ---
@@ -413,11 +413,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                                         | 难度     | Notes       |
 | --- | ------------------------------------------ | ------ | ----------- |
-| 228 | Summary Ranges                             | Easy   | 扫描连续区间      |
-| 56  | Merge Intervals                            | Medium | 排序 + 合并     |
-| 57  | Insert Interval                            | Medium | 分类讨论插入      |
-| 452 | Minimum Number of Arrows to Burst Balloons | Medium | 区间排序 + 射箭贪心 |
-| 36  | Valid Sudoku                               | Medium | 行列宫哈希检查     |
+| 228 | Summary Ranges 汇总区间                             | Easy   | 扫描连续区间      |
+| 56  | Merge Intervals 合并区间                            | Medium | 排序 + 合并     |
+| 57  | Insert Interval 插入区间                            | Medium | 分类讨论插入      |
+| 452 | Minimum Number of Arrows to Burst Balloons 用最少数量的箭引爆气球 | Medium | 区间排序 + 射箭贪心 |
+| 36  | Valid Sudoku 有效的数独                               | Medium | 行列宫哈希检查     |
 
 
 ---
@@ -441,11 +441,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                | 难度     | Notes    |
 | --- | ----------------- | ------ | -------- |
-| 54  | Spiral Matrix     | Medium | 边界模拟     |
-| 48  | Rotate Image      | Medium | 转置 + 翻转  |
-| 73  | Set Matrix Zeroes | Medium | 原地标记首行首列 |
-| 289 | Game of Life      | Medium | 状态编码原地更新 |
-| 20  | Valid Parentheses | Easy   | 括号栈匹配    |
+| 54  | Spiral Matrix 螺旋矩阵     | Medium | 边界模拟     |
+| 48  | Rotate Image 旋转图像      | Medium | 转置 + 翻转  |
+| 73  | Set Matrix Zeroes 矩阵置零 | Medium | 原地标记首行首列 |
+| 289 | Game of Life 生命游戏      | Medium | 状态编码原地更新 |
+| 20  | Valid Parentheses 有效的括号 | Easy   | 括号栈匹配    |
 
 
 ---
@@ -469,11 +469,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #       | 题目                               | 难度     | Notes       |
 | ------- | -------------------------------- | ------ | ----------- |
-| 71      | Simplify Path                    | Medium | 路径栈简化       |
-| 155     | Min Stack                        | Medium | 辅助栈维护最小值    |
-| 150     | Evaluate Reverse Polish Notation | Medium | 逆波兰表达式栈计算   |
-| **224** | Basic Calculator                 | Hard   | 栈 + 递归/符号处理 |
-| 141     | Linked List Cycle                | Easy   | 快慢指针判环      |
+| 71      | Simplify Path 简化路径                    | Medium | 路径栈简化       |
+| 155     | Min Stack 最小栈                        | Medium | 辅助栈维护最小值    |
+| 150     | Evaluate Reverse Polish Notation 逆波兰表达式求值 | Medium | 逆波兰表达式栈计算   |
+| **224** | Basic Calculator 基本计算器                 | Hard   | 栈 + 递归/符号处理 |
+| 141     | Linked List Cycle 环形链表                | Easy   | 快慢指针判环      |
 
 
 ---
@@ -496,11 +496,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                               | 难度     | Notes   |
 | --- | -------------------------------- | ------ | ------- |
-| 21  | Merge Two Sorted Lists           | Easy   | 归并链表    |
-| 2   | Add Two Numbers                  | Medium | 链表模拟加法  |
-| 138 | Copy List with Random Pointer    | Medium | 哈希/交织复制 |
-| 92  | Reverse Linked List II           | Medium | 区间反转    |
-| 19  | Remove Nth Node From End of List | Medium | 快慢指针定位  |
+| 21  | Merge Two Sorted Lists 合并两个有序链表           | Easy   | 归并链表    |
+| 2   | Add Two Numbers 两数相加                  | Medium | 链表模拟加法  |
+| 138 | Copy List with Random Pointer 复制带随机指针的链表    | Medium | 哈希/交织复制 |
+| 92  | Reverse Linked List II 反转链表 II           | Medium | 区间反转    |
+| 19  | Remove Nth Node From End of List 删除链表的倒数第 N 个结点 | Medium | 快慢指针定位  |
 
 
 ---
@@ -523,11 +523,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #      | 题目                                    | 难度     | Notes     |
 | ------ | ------------------------------------- | ------ | --------- |
-| 82     | Remove Duplicates from Sorted List II | Medium | 虚拟头 + 去重  |
-| 61     | Rotate List                           | Medium | 成环再断开     |
-| 86     | Partition List                        | Medium | 两个子链表分区   |
-| 146    | LRU Cache                             | Medium | 哈希 + 双向链表 |
-| **25** | Reverse Nodes in k-Group              | Hard   | 分组反转      |
+| 82     | Remove Duplicates from Sorted List II 删除排序链表中的重复元素 II | Medium | 虚拟头 + 去重  |
+| 61     | Rotate List 旋转链表                           | Medium | 成环再断开     |
+| 86     | Partition List 分隔链表                        | Medium | 两个子链表分区   |
+| 146    | LRU Cache LRU 缓存                             | Medium | 哈希 + 双向链表 |
+| **25** | Reverse Nodes in k-Group K 个一组翻转链表              | Hard   | 分组反转      |
 
 
 ---
@@ -549,11 +549,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                           | 难度   | Notes       |
 | --- | ---------------------------- | ---- | ----------- |
-| 104 | Maximum Depth of Binary Tree | Easy | DFS 深度      |
-| 100 | Same Tree                    | Easy | 递归比较结构      |
-| 226 | Invert Binary Tree           | Easy | 递归/BFS 交换左右 |
-| 101 | Symmetric Tree               | Easy | 镜像递归判断      |
-| 112 | Path Sum                     | Easy | DFS 路径和     |
+| 104 | Maximum Depth of Binary Tree 二叉树的最大深度 | Easy | DFS 深度      |
+| 100 | Same Tree 相同的树                    | Easy | 递归比较结构      |
+| 226 | Invert Binary Tree 翻转二叉树           | Easy | 递归/BFS 交换左右 |
+| 101 | Symmetric Tree 对称二叉树               | Easy | 镜像递归判断      |
+| 112 | Path Sum 路径总和                     | Easy | DFS 路径和     |
 
 
 ---
@@ -576,11 +576,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                                               | 难度     | Notes          |
 | --- | ------------------------------------------------ | ------ | -------------- |
-| 222 | Count Complete Tree Nodes                        | Easy   | 完全二叉树高度性质 + 二分 |
-| 637 | Average of Levels in Binary Tree                 | Easy   | BFS 层平均值       |
-| 105 | Construct Binary Tree from Preorder and Inorder  | Medium | 前序 + 中序构造      |
-| 106 | Construct Binary Tree from Inorder and Postorder | Medium | 中序 + 后序构造      |
-| 117 | Populating Next Right Pointers in Each Node II   | Medium | 层序/BFS 连接 next |
+| 222 | Count Complete Tree Nodes 完全二叉树的节点个数                        | Easy   | 完全二叉树高度性质 + 二分 |
+| 637 | Average of Levels in Binary Tree 二叉树的层平均值                 | Easy   | BFS 层平均值       |
+| 105 | Construct Binary Tree from Preorder and Inorder 从前序与中序遍历序列构造二叉树  | Medium | 前序 + 中序构造      |
+| 106 | Construct Binary Tree from Inorder and Postorder 从中序与后序遍历序列构造二叉树 | Medium | 中序 + 后序构造      |
+| 117 | Populating Next Right Pointers in Each Node II 填充每个节点的下一个右侧节点指针 II   | Medium | 层序/BFS 连接 next |
 
 
 ---
@@ -603,11 +603,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                                      | 难度     | Notes       |
 | --- | --------------------------------------- | ------ | ----------- |
-| 114 | Flatten Binary Tree to Linked List      | Medium | 前序展开为链表     |
-| 129 | Sum Root to Leaf Numbers                | Medium | DFS 数字路径    |
-| 236 | Lowest Common Ancestor of a Binary Tree | Medium | 递归 LCA      |
-| 199 | Binary Tree Right Side View             | Medium | BFS/DFS 右视图 |
-| 102 | Binary Tree Level Order Traversal       | Medium | BFS 层序遍历    |
+| 114 | Flatten Binary Tree to Linked List 二叉树展开为链表      | Medium | 前序展开为链表     |
+| 129 | Sum Root to Leaf Numbers 求根节点到叶节点数字之和                | Medium | DFS 数字路径    |
+| 236 | Lowest Common Ancestor of a Binary Tree 二叉树的最近公共祖先 | Medium | 递归 LCA      |
+| 199 | Binary Tree Right Side View 二叉树的右视图             | Medium | BFS/DFS 右视图 |
+| 102 | Binary Tree Level Order Traversal 二叉树的层序遍历       | Medium | BFS 层序遍历    |
 
 
 ---
@@ -630,10 +630,10 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #       | 题目                                         | 难度     | Notes        |
 | ------- | ------------------------------------------ | ------ | ------------ |
-| 103     | Binary Tree Zigzag Level Order Traversal   | Medium | 之字形层序        |
-| **124** | Binary Tree Maximum Path Sum               | Hard   | DFS + 全局最大路径 |
-| 530     | Minimum Absolute Difference in BST         | Easy   | BST 中序相邻差值   |
-| 108     | Convert Sorted Array to Binary Search Tree | Easy   | 递归分治构造       |
+| 103     | Binary Tree Zigzag Level Order Traversal 二叉树的锯齿形层序遍历   | Medium | 之字形层序        |
+| **124** | Binary Tree Maximum Path Sum 二叉树中的最大路径和               | Hard   | DFS + 全局最大路径 |
+| 530     | Minimum Absolute Difference in BST 二叉搜索树的最小绝对差         | Easy   | BST 中序相邻差值   |
+| 108     | Convert Sorted Array to Binary Search Tree 将有序数组转换为二叉搜索树 | Easy   | 递归分治构造       |
 
 
 ---
@@ -656,11 +656,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                            | 难度     | Notes      |
 | --- | ----------------------------- | ------ | ---------- |
-| 230 | Kth Smallest Element in a BST | Medium | 中序第 k 小    |
-| 98  | Validate Binary Search Tree   | Medium | 范围限制/中序检查  |
-| 173 | BST Iterator                  | Medium | 中序迭代器      |
-| 200 | Number of Islands             | Medium | 网格 DFS/BFS |
-| 130 | Surrounded Regions            | Medium | 边界 DFS     |
+| 230 | Kth Smallest Element in a BST 二叉搜索树中第K小的元素 | Medium | 中序第 k 小    |
+| 98  | Validate Binary Search Tree 验证二叉搜索树   | Medium | 范围限制/中序检查  |
+| 173 | BST Iterator 二叉搜索树迭代器                  | Medium | 中序迭代器      |
+| 200 | Number of Islands 岛屿数量             | Medium | 网格 DFS/BFS |
+| 130 | Surrounded Regions 被围绕的区域            | Medium | 边界 DFS     |
 
 
 ---
@@ -683,11 +683,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                 | 难度     | Notes           |
 | --- | ------------------ | ------ | --------------- |
-| 133 | Clone Graph        | Medium | 图 DFS/BFS + 哈希表 |
-| 399 | Evaluate Division  | Medium | 带权图 + BFS/并查集   |
-| 207 | Course Schedule    | Medium | 拓扑排序可行性         |
-| 210 | Course Schedule II | Medium | 拓扑排序序列          |
-| 909 | Snakes and Ladders | Medium | 棋盘 BFS          |
+| 133 | Clone Graph 克隆图        | Medium | 图 DFS/BFS + 哈希表 |
+| 399 | Evaluate Division 除法求值  | Medium | 带权图 + BFS/并查集   |
+| 207 | Course Schedule 课程表    | Medium | 拓扑排序可行性         |
+| 210 | Course Schedule II 课程表 II | Medium | 拓扑排序序列          |
+| 909 | Snakes and Ladders 蛇梯棋 | Medium | 棋盘 BFS          |
 
 
 ---
@@ -710,10 +710,10 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #       | 题目                                         | 难度     | Notes        |
 | ------- | ------------------------------------------ | ------ | ------------ |
-| 433     | Minimum Genetic Mutation                   | Medium | 状态图 BFS      |
-| 208     | Implement Trie (Prefix Tree)               | Medium | Trie 基础实现    |
-| 211     | Design Add and Search Words Data Structure | Medium | Trie + DFS   |
-| **127** | Word Ladder                                | Hard   | BFS / 双向 BFS |
+| 433     | Minimum Genetic Mutation 最小基因变化                   | Medium | 状态图 BFS      |
+| 208     | Implement Trie 实现 Trie (前缀树)               | Medium | Trie 基础实现    |
+| 211     | Design Add and Search Words 添加与搜索单词 | Medium | Trie + DFS   |
+| **127** | Word Ladder 单词接龙                                | Hard   | BFS / 双向 BFS |
 
 
 ---
@@ -736,10 +736,10 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #       | 题目                                    | 难度     | Notes     |
 | ------- | ------------------------------------- | ------ | --------- |
-| **212** | Word Search II                        | Hard   | Trie + 回溯 |
-| 17      | Letter Combinations of a Phone Number | Medium | 字符串组合回溯   |
-| 77      | Combinations                          | Medium | 组合 + 剪枝   |
-| 46      | Permutations                          | Medium | 全排列       |
+| **212** | Word Search II 单词搜索 II                        | Hard   | Trie + 回溯 |
+| 17      | Letter Combinations of a Phone Number 电话号码的字母组合 | Medium | 字符串组合回溯   |
+| 77      | Combinations 组合                          | Medium | 组合 + 剪枝   |
+| 46      | Permutations 全排列                          | Medium | 全排列       |
 
 
 ---
@@ -763,10 +763,10 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #      | 题目                   | 难度     | Notes     |
 | ------ | -------------------- | ------ | --------- |
-| 39     | Combination Sum      | Medium | 组合总和      |
-| 22     | Generate Parentheses | Medium | 合法括号回溯    |
-| 79     | Word Search          | Medium | 网格 DFS 回溯 |
-| **52** | N-Queens II          | Hard   | 棋盘回溯      |
+| 39     | Combination Sum 组合总和      | Medium | 组合总和      |
+| 22     | Generate Parentheses 括号生成 | Medium | 合法括号回溯    |
+| 79     | Word Search 单词搜索          | Medium | 网格 DFS 回溯 |
+| **52** | N-Queens II N 皇后 II          | Hard   | 棋盘回溯      |
 
 
 ---
@@ -790,11 +790,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #      | 题目                            | 难度     | Notes     |
 | ------ | ----------------------------- | ------ | --------- |
-| 427    | Construct Quad Tree           | Medium | 递归分治构建    |
-| 148    | Sort List                     | Medium | 链表归并排序    |
-| 53     | Maximum Subarray              | Medium | Kadane 算法 |
-| 918    | Maximum Sum Circular Subarray | Medium | Kadane 变体 |
-| **23** | Merge k Sorted Lists          | Hard   | 分治/优先队列   |
+| 427    | Construct Quad Tree 建立四叉树           | Medium | 递归分治构建    |
+| 148    | Sort List 排序链表                     | Medium | 链表归并排序    |
+| 53     | Maximum Subarray 最大子数组和              | Medium | Kadane 算法 |
+| 918    | Maximum Sum Circular Subarray 环形子数组的最大和 | Medium | Kadane 变体 |
+| **23** | Merge k Sorted Lists 合并 K 个升序链表          | Hard   | 分治/优先队列   |
 
 
 ---
@@ -817,11 +817,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                             | 难度     | Notes   |
 | --- | ------------------------------ | ------ | ------- |
-| 35  | Search Insert Position         | Easy   | 基础二分模板  |
-| 69  | Sqrt(x)                        | Easy   | 二分/牛顿法  |
-| 74  | Search a 2D Matrix             | Medium | 二维转一维二分 |
-| 162 | Find Peak Element              | Medium | 峰值二分    |
-| 33  | Search in Rotated Sorted Array | Medium | 旋转数组二分  |
+| 35  | Search Insert Position 搜索插入位置         | Easy   | 基础二分模板  |
+| 69  | Sqrt(x) x 的平方根                        | Easy   | 二分/牛顿法  |
+| 74  | Search a 2D Matrix 搜索二维矩阵             | Medium | 二维转一维二分 |
+| 162 | Find Peak Element 寻找峰值              | Medium | 峰值二分    |
+| 33  | Search in Rotated Sorted Array 搜索旋转排序数组 | Medium | 旋转数组二分  |
 
 
 ---
@@ -844,10 +844,10 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #     | 题目                                                      | 难度     | Notes     |
 | ----- | ------------------------------------------------------- | ------ | --------- |
-| 34    | Find First and Last Position of Element in Sorted Array | Medium | 左右边界二分    |
-| 153   | Find Minimum in Rotated Sorted Array                    | Medium | 旋转数组最小值二分 |
-| **4** | Median of Two Sorted Arrays                             | Hard   | 划分 + 二分答案 |
-| 215   | Kth Largest Element in an Array                         | Medium | 快速选择/堆    |
+| 34    | Find First and Last Position 在排序数组中查找元素的第一个和最后一个位置 | Medium | 左右边界二分    |
+| 153   | Find Minimum in Rotated Sorted Array 寻找旋转排序数组中的最小值                    | Medium | 旋转数组最小值二分 |
+| **4** | Median of Two Sorted Arrays 寻找两个正序数组的中位数                             | Hard   | 划分 + 二分答案 |
+| 215   | Kth Largest Element in an Array 数组中的第K个最大元素                         | Medium | 快速选择/堆    |
 
 
 ---
@@ -870,10 +870,10 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #       | 题目                              | 难度     | Notes     |
 | ------- | ------------------------------- | ------ | --------- |
-| 373     | Find K Pairs with Smallest Sums | Medium | 最小堆 K 组数对 |
-| **502** | IPO                             | Hard   | 贪心 + 双堆   |
-| 67      | Add Binary                      | Easy   | 二进制加法模拟   |
-| 190     | Reverse Bits                    | Easy   | 位翻转       |
+| 373     | Find K Pairs with Smallest Sums 查找和最小的 K 对数字 | Medium | 最小堆 K 组数对 |
+| **502** | IPO IPO                             | Hard   | 贪心 + 双堆   |
+| 67      | Add Binary 二进制求和                      | Easy   | 二进制加法模拟   |
+| 190     | Reverse Bits 颠倒二进制位                    | Easy   | 位翻转       |
 
 
 ---
@@ -897,11 +897,11 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #       | 题目                           | 难度     | Notes        |
 | ------- | ---------------------------- | ------ | ------------ |
-| 191     | Number of 1 Bits             | Easy   | n & (n-1) 计数 |
-| 136     | Single Number                | Easy   | 异或找唯一        |
-| 137     | Single Number II             | Medium | 位计数/状态机      |
-| 201     | Bitwise AND of Numbers Range | Medium | 公共前缀         |
-| **295** | Find Median from Data Stream | Hard   | 对顶堆维护中位数     |
+| 191     | Number of 1 Bits 位1的个数             | Easy   | n & (n-1) 计数 |
+| 136     | Single Number 只出现一次的数字                | Easy   | 异或找唯一        |
+| 137     | Single Number II 只出现一次的数字 II             | Medium | 位计数/状态机      |
+| 201     | Bitwise AND of Numbers Range 数字范围按位与 | Medium | 公共前缀         |
+| **295** | Find Median from Data Stream 数据流的中位数 | Hard   | 对顶堆维护中位数     |
 
 
 ---
@@ -927,7 +927,7 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 | --- | ------------------------- | ------ | --------------- |
 | 9   | Palindrome Number         | Easy   | 反转一半数字          |
 | 66  | Plus One                  | Easy   | 数组模拟进位          |
-| 172 | Factorial Trailing Zeroes | Medium | 统计因子 5          |
+| 172 | Factorial Trailing Zeroes 阶乘后的零 | Medium | 统计因子 5          |
 | 50  | Pow(x, n)                 | Medium | 快速幂             |
 | 70  | Climbing Stairs           | Easy   | 经典 Fibonacci DP |
 
@@ -958,7 +958,7 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 | 139     | Word Break                          | Medium | 字典切分 DP  |
 | 322     | Coin Change                         | Medium | 完全背包最少硬币 |
 | 300     | Longest Increasing Subsequence      | Medium | DP/二分优化  |
-| **123** | Best Time to Buy and Sell Stock III | Hard   | 多状态机 DP  |
+| **123** | Best Time to Buy and Sell Stock III 买卖股票的最佳时机 III | Hard   | 多状态机 DP  |
 
 
 ---
@@ -982,7 +982,7 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 
 | #   | 题目                            | 难度     | Notes       |
 | --- | ----------------------------- | ------ | ----------- |
-| 120 | Triangle                      | Medium | 自底向上三角形 DP  |
+| 120 | Triangle 三角形最小路径和                      | Medium | 自底向上三角形 DP  |
 | 64  | Minimum Path Sum              | Medium | 网格最短路径 DP   |
 | 63  | Unique Paths II               | Medium | 障碍网格 DP     |
 | 5   | Longest Palindromic Substring | Medium | 中心扩展/二维 DP  |
@@ -1012,7 +1012,7 @@ This file gives an **alternative view** of the same LeetCode Top Interview 150 s
 | ------- | ---------------------------------- | ------ | ---------- |
 | 72      | Edit Distance                      | Medium | 经典编辑距离 DP  |
 | 221     | Maximal Square                     | Medium | 网格最大正方形 DP |
-| **188** | Best Time to Buy and Sell Stock IV | Hard   | K 次交易 DP   |
+| **188** | Best Time to Buy and Sell Stock IV 买卖股票的最佳时机 IV | Hard   | K 次交易 DP   |
 
 
 ---
