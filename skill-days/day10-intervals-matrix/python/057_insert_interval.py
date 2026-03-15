@@ -68,7 +68,7 @@ class Solution:
     def insert_linear(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         result = []
         i, n = 0, len(intervals)
-
+        
         while i < n and intervals[i][1] < newInterval[0]:
             result.append(intervals[i])
             i += 1
@@ -80,6 +80,7 @@ class Solution:
         result.append(newInterval)
 
         while i < n:
+            # 右侧的区间直接加入结果
             result.append(intervals[i])
             i += 1
 
@@ -126,8 +127,10 @@ class Solution:
         starts = [iv[0] for iv in intervals]
 
         left = bisect.bisect_left(ends, newInterval[0])
+        # 找到第一个大于 newInterval[1] 的索引，如果找不到，则返回 len(starts)
         right = bisect.bisect_right(starts, newInterval[1]) - 1
 
+        #
         if left > right:
             return intervals[:left] + [newInterval] + intervals[left:]
 

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>76. Minimum Window Substring — 解法二滑动窗口可视化</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;600&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      color: #e8e8e8;
+      padding: 2rem;
+    }
+    .container { max-width: 820px; margin: 0 auto; }
+    h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; color: #00d9ff; }
+    .subtitle { font-size: 0.9rem; opacity: 0.8; margin-bottom: 2rem; }
+    .input-group { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .field { flex: 1; min-width: 200px; }
+    .field label { display: block; font-size: 0.85rem; margin-bottom: 0.4rem; color: #94a3b8; }
+    .field input {
+      width: 100%;
+      padding: 0.6rem 0.9rem;
+      font-size: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: #e8e8e8;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: #00d9ff;
+      box-shadow: 0 0 0 2px rgba(0,217,255,0.2);
+    }
+    .btn-row { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    button {
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: linear-gradient(135deg, #00d9ff, #0099cc); color: #0f172a; font-weight: 600; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: #e8e8e8; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.15); }
+    .btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .visualization {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .string-label { font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.35rem; }
+    .chars {
+      display: flex;
+      gap: 2px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+    .char {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .char.in-window {
+      background: linear-gradient(135deg, #00d9ff33, #00d9ff66);
+      border-color: #00d9ff;
+    }
+    .char.left-edge { box-shadow: 0 0 0 2px #ff6b6b; }
+    .char.right-edge { box-shadow: 0 0 0 2px #00d9ff; }
+    .char.current-right { background: rgba(0,217,255,0.5); border-color: #00d9ff; }
+    .char.current-left { background: rgba(255,107,107,0.35); border-color: #ff6b6b; }
+    .indices { font-size: 0.7rem; color: #94a3b8; margin-top: 2px; }
+    .state-row {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+    .state-item {
+      background: rgba(0,0,0,0.25);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .state-item strong { color: #00d9ff; margin-right: 0.35rem; }
+    .need-table {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+    }
+    .need-table table { border-collapse: collapse; }
+    .need-table th, .need-table td {
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      text-align: center;
+    }
+    .need-table th { color: #94a3b8; font-weight: 500; }
+    .need-table .char-col { color: #00d9ff; }
+    .step-desc {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      border-left: 4px solid #00d9ff;
+    }
+    .step-desc.shrink { border-left-color: #ff6b6b; }
+    .step-desc .op { color: #00ff88; }
+    .log {
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      max-height: 180px;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-top: 1rem;
+    }
+    .log-entry { padding: 0.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .log-entry:last-child { border-bottom: none; }
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      background: rgba(0,255,136,0.15);
+      color: #00ff88;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>76. Minimum Window Substring — 解法二滑动窗口可视化</h1>
+    <p class="subtitle">diff = 还欠缺的字符总数；need[c] 先减后加，diff==0 时收缩左边界</p>
+
+    <div class="input-group">
+      <div class="field">
+        <label>s (主串)</label>
+        <input type="text" id="inputS" value="ADOBECODEBANC" placeholder="例如 ADOBECODEBANC">
+      </div>
+      <div class="field">
+        <label>t (要覆盖的字符)</label>
+        <input type="text" id="inputT" value="ABC" placeholder="例如 ABC">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" onclick="reset()">▶ 开始 / 重置</button>
+      <button class="btn-secondary" id="btnPrev" onclick="prev()" disabled>上一步</button>
+      <button class="btn-secondary" id="btnNext" onclick="next()" disabled>下一步</button>
+    </div>
+
+    <div class="visualization">
+      <div class="string-label">s · 窗口 [left, right]（红色=left，蓝色=right）</div>
+      <div class="chars" id="charsS"></div>
+      <div class="chars indices" id="indicesS"></div>
+      <div class="state-row" id="stateRow"></div>
+      <div class="need-table" id="needTable"></div>
+      <div class="step-desc" id="stepDesc"></div>
+      <div class="log" id="log"></div>
+      <div class="result" id="result" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script>
+    let s = '', t = '';
+    let steps = [];
+    let stepIndex = -1;
+    let needChars = [];
+
+    function buildSteps() {
+      const _s = s;
+      const _t = t;
+      if (!_s || !_t || _s.length < _t.length) return [];
+
+      const need = new Array(128).fill(0);
+      for (let i = 0; i < _t.length; i++) need[_t.charCodeAt(i)]++;
+      const initialNeed = _t.split('').reduce((acc, c) => {
+        acc[c] = (acc[c] || 0) + 1;
+        return acc;
+      }, {});
+
+      let diff = _t.length;
+      let left = 0;
+      let minLen = Infinity;
+      let minStart = 0;
+      const list = [];
+      const needSnapshot = () => {
+        const o = {};
+        for (const c of Object.keys(initialNeed)) o[c] = need[c.charCodeAt(0)];
+        return o;
+      };
+
+      list.push({
+        type: 'init',
+        left: 0,
+        right: -1,
+        diff,
+        need: needSnapshot(),
+        minLen,
+        minStart,
+        desc: '初始：diff = len(t)，need 为 t 中各字符需求，窗口为空'
+      });
+
+      for (let right = 0; right < _s.length; right++) {
+        const c = _s[right];
+        const idx = c.charCodeAt(0);
+        const needBefore = need[idx];
+        if (need[idx] > 0) diff--;
+        need[idx]--;
+        const needAfter = need[idx];
+      const diffBeforeExpand = diff + (needBefore > 0 ? 1 : 0);
+      list.push({
+        type: 'expand',
+        left,
+        right,
+        char: c,
+        needBefore,
+        needAfter,
+        diffBefore: diffBeforeExpand,
+        diff,
+        need: needSnapshot(),
+        minLen,
+        minStart,
+        desc: `扩展 right=${right}，纳入 '${c}'。need['${c}'] 原=${needBefore} → 现=${needAfter}；${needBefore > 0 ? `need>0 故 diff ${diffBeforeExpand}→${diff}` : 'need 原≤0，diff 不变'}`
+      });
+
+        while (diff === 0) {
+          const len = right - left + 1;
+          if (len < minLen) {
+            minLen = len;
+            minStart = left;
+          }
+          const lc = _s[left];
+          const leftIdx = lc.charCodeAt(0);
+          const needLeftBefore = need[leftIdx];
+          need[leftIdx]++;
+          const needLeftAfter = need[leftIdx];
+          if (need[leftIdx] > 0) diff++;
+          list.push({
+            type: 'shrink',
+            left,
+            right,
+            char: lc,
+            needBefore: needLeftBefore,
+            needAfter: needLeftAfter,
+            diffBefore: 0,
+            diff,
+            need: needSnapshot(),
+            minLen,
+            minStart,
+            updated: len === minLen,
+            desc: `收缩 left=${left}，移除 '${lc}'。need['${lc}'] 原=${needLeftBefore} → 现=${needLeftAfter}；${needLeftAfter > 0 ? `need>0 故 diff 0→${diff}` : 'need 仍≤0，diff 不变'}${len === minLen ? ' · 更新最小窗口' : ''}`
+          });
+          left++;
+        }
+      }
+
+      list.push({
+        type: 'done',
+        left: 0,
+        right: -1,
+        diff: 0,
+        need: needSnapshot(),
+        minLen,
+        minStart,
+        result: minLen === Infinity ? '' : _s.slice(minStart, minStart + minLen),
+        desc: minLen === Infinity ? '无覆盖子串' : `答案: "${minLen === Infinity ? '' : _s.slice(minStart, minStart + minLen)}" (长度 ${minLen})`
+      });
+      return list;
+    }
+
+    function reset() {
+      s = document.getElementById('inputS').value;
+      t = document.getElementById('inputT').value;
+      needChars = [...new Set(t.split(''))].sort();
+      steps = buildSteps();
+      stepIndex = 0;
+      document.getElementById('btnNext').disabled = steps.length <= 1;
+      document.getElementById('btnPrev').disabled = true;
+      document.getElementById('result').style.display = 'none';
+      render();
+      document.getElementById('log').innerHTML = '';
+      addLog('点击「下一步」按顺序观看扩展/收缩与 diff、need 的变化');
+    }
+
+    function addLog(msg) {
+      const log = document.getElementById('log');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.textContent = msg;
+      log.appendChild(entry);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function next() {
+      if (stepIndex < steps.length - 1) {
+        if (stepIndex === 0) document.getElementById('log').innerHTML = '';
+        stepIndex++;
+        addLog(`步骤 ${stepIndex}: ${steps[stepIndex].desc}`);
+        render();
+        document.getElementById('btnPrev').disabled = false;
+        if (stepIndex >= steps.length - 1) {
+          document.getElementById('btnNext').disabled = true;
+          if (steps[stepIndex].type === 'done' && steps[stepIndex].result !== undefined) {
+            const el = document.getElementById('result');
+            el.style.display = 'block';
+            el.textContent = '答案: "' + steps[stepIndex].result + '"';
+          }
+        }
+      }
+    }
+
+    function prev() {
+      if (stepIndex > 0) {
+        stepIndex--;
+        render();
+        document.getElementById('btnNext').disabled = false;
+        if (stepIndex <= 0) document.getElementById('btnPrev').disabled = true;
+        const log = document.getElementById('log');
+        if (log.lastChild) log.removeChild(log.lastChild);
+        document.getElementById('result').style.display = 'none';
+      }
+    }
+
+    function render() {
+      const st = steps[stepIndex];
+      if (!st) return;
+
+      const charsEl = document.getElementById('charsS');
+      const indicesEl = document.getElementById('indicesS');
+      charsEl.innerHTML = '';
+      indicesEl.innerHTML = '';
+      for (let i = 0; i < s.length; i++) {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = s[i];
+        if (st.right >= 0 && i >= st.left && i <= st.right) {
+          span.classList.add('in-window');
+          if (i === st.left) span.classList.add('left-edge', 'current-left');
+          if (i === st.right && st.type === 'expand') span.classList.add('right-edge', 'current-right');
+          if (st.type === 'shrink' && i === st.left) span.classList.add('current-left');
+        }
+        charsEl.appendChild(span);
+        const idxSpan = document.createElement('span');
+        idxSpan.className = 'char';
+        idxSpan.style.width = '2rem';
+        idxSpan.textContent = i;
+        indicesEl.appendChild(idxSpan);
+      }
+
+      document.getElementById('stateRow').innerHTML = `
+        <div class="state-item"><strong>left</strong> ${st.left}</div>
+        <div class="state-item"><strong>right</strong> ${st.right}</div>
+        <div class="state-item"><strong>diff</strong> ${st.diff}</div>
+        ${st.minLen !== Infinity ? `<div class="state-item"><strong>minLen</strong> ${st.minLen} (start=${st.minStart})</div>` : ''}
+      `;
+
+      let needHtml = '<table><tr><th>字符</th>';
+      needChars.forEach(c => { needHtml += `<th class="char-col">'${c}'</th>`; });
+      needHtml += '</tr><tr><td>need</td>';
+      needChars.forEach(c => { needHtml += `<td>${st.need[c] != null ? st.need[c] : '-'}</td>`; });
+      needHtml += '</tr></table>';
+      document.getElementById('needTable').innerHTML = needHtml;
+
+      document.getElementById('stepDesc').textContent = st.desc;
+      document.getElementById('stepDesc').className = 'step-desc' + (st.type === 'shrink' ? ' shrink' : '');
+    }
+
+    reset();
+  </script>
+</body>
+</html>

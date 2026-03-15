@@ -163,9 +163,11 @@ class MinimumWindowSubstring076 {
         int minStart = 0;
 
         for (int right = 0; right < s.length(); right++) {
+            // 扩展窗口：该字符若原本还「欠」（need > 0），纳入后欠数减一
             if (need[s.charAt(right)] > 0) {
                 diff--;
             }
+            // 纳入字符即「消耗」一次需求，need 减一（逆操作在收缩时 need[left]++）
             need[s.charAt(right)]--;
 
             while (diff == 0) {
@@ -174,6 +176,8 @@ class MinimumWindowSubstring076 {
                     minStart = left;
                 }
 
+                // += 1 是扩展时 need[right] -= 1 的逆操作：移除左边界字符时把该字符「还回去」
+                // s.charAt(left) 不必在 t 中：不在 t 的字符 need 初始为 0，减后为负，加回后仍 <= 0，need > 0 不成立，diff 不变
                 need[s.charAt(left)]++;
                 if (need[s.charAt(left)] > 0) {
                     diff++;

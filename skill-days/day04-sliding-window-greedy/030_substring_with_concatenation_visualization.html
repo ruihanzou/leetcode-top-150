@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>30. Substring with Concatenation of All Words — 滑动窗口可视化</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;600&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      color: #e8e8e8;
+      padding: 2rem;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; color: #00d9ff; }
+    .subtitle { font-size: 0.9rem; opacity: 0.8; margin-bottom: 0.5rem; }
+    .explain-offset {
+      font-size: 0.85rem; color: #cbd5e1; margin-bottom: 2rem; padding: 0.9rem 1rem;
+      background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 3px solid #00d9ff;
+      line-height: 1.5;
+    }
+    .explain-offset ul { margin: 0.5rem 0 0 1.2rem; padding: 0; }
+    .explain-offset li { margin-bottom: 0.4rem; }
+    .explain-offset strong { color: #00d9ff; }
+    .explain-offset code { background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    .input-group { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .field { flex: 1; min-width: 200px; }
+    .field label { display: block; font-size: 0.85rem; margin-bottom: 0.4rem; color: #94a3b8; }
+    .field input {
+      width: 100%;
+      padding: 0.6rem 0.9rem;
+      font-size: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: #e8e8e8;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: #00d9ff;
+      box-shadow: 0 0 0 2px rgba(0,217,255,0.2);
+    }
+    .btn-row { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    button {
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: linear-gradient(135deg, #00d9ff, #0099cc); color: #0f172a; font-weight: 600; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: #e8e8e8; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.15); }
+    .btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .visualization {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .string-label { font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.35rem; }
+    .chars {
+      display: flex;
+      gap: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+    .char {
+      min-width: 1.5rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .char.segment-end { border-right: 2px solid rgba(255,255,255,0.4); padding-right: 2px; margin-right: 1px; }
+    .char.in-window {
+      background: linear-gradient(135deg, #00d9ff33, #00d9ff66);
+      border-color: rgba(0,217,255,0.4);
+    }
+    .char.left-edge { box-shadow: inset 0 0 0 2px #ff6b6b; }
+    .char.right-edge { box-shadow: inset 0 0 0 2px #00d9ff; }
+    .char.current-word { background: rgba(0,217,255,0.45); }
+    .char.invalid-word { background: rgba(255,107,107,0.35); }
+    .indices { font-size: 0.65rem; color: #94a3b8; margin-top: 2px; }
+    .state-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+    .state-item {
+      background: rgba(0,0,0,0.25);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .state-item strong { color: #00d9ff; margin-right: 0.35rem; }
+    .state-item.state-empty { color: #ffa502; }
+    .table-section { margin-top: 0.75rem; font-size: 0.85rem; }
+    .table-section table { border-collapse: collapse; }
+    .table-section th, .table-section td {
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      text-align: center;
+    }
+    .table-section th { color: #94a3b8; font-weight: 500; }
+    .table-section .word-col { color: #00d9ff; }
+    .table-section .over { color: #ff6b6b; }
+    .step-desc {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      border-left: 4px solid #00d9ff;
+    }
+    .step-desc.shrink { border-left-color: #ff6b6b; }
+    .step-desc.clear { border-left-color: #ffa502; }
+    .step-desc.found { border-left-color: #00ff88; }
+    .log {
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      max-height: 160px;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-top: 1rem;
+    }
+    .log-entry { padding: 0.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .log-entry:last-child { border-bottom: none; }
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      background: rgba(0,255,136,0.15);
+      color: #00ff88;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>30. Substring with Concatenation of All Words — 滑动窗口可视化</h1>
+    <p class="subtitle">按 offset = 0..word_len-1 分组，每组内以 word_len 为步长滑动；窗口内单词数 matched 等于 word_count 时记录 left</p>
+    <div class="explain-offset">
+      <strong>怎么理解这个做法？</strong>
+      <ul>
+        <li><strong>第一步：分桶。</strong> 一共有 <strong>word_len</strong> 个桶。起点 <code>i</code> 放进第 <code>i % word_len</code> 号桶。</li>
+        <li><strong>为什么这样分？</strong> 因为同一个桶里的起点，切出来的单词边界是对齐的，可以放在一起处理。</li>
+        <li><strong>例如 word_len = 3：</strong> 桶 0 里的起点是 0,3,6,9,...；桶 1 是 1,4,7,10,...；桶 2 是 2,5,8,11,...。</li>
+        <li><strong>第二步：逐桶滑动。</strong> 固定一个桶后，右端每次加入一个完整单词；如果某个单词次数超了，就从左端弹出一个完整单词。</li>
+        <li><strong>什么时候记答案？</strong> 当窗口里刚好有 <code>word_count</code> 个单词，而且每个单词次数都合法时，当前 <code>left</code> 就是答案。</li>
+        <li><strong>为什么不会漏？</strong> 因为每个起点只会进一个桶，所以所有起点都会被检查到，而且不会重复。</li>
+      </ul>
+    </div>
+
+    <div class="input-group">
+      <div class="field">
+        <label>s (主串)</label>
+        <input type="text" id="inputS" value="barfoothefoobarman" placeholder="例如 barfoothefoobarman">
+      </div>
+      <div class="field">
+        <label>words (逗号分隔，等长)</label>
+        <input type="text" id="inputWords" value="foo,bar" placeholder="例如 foo,bar">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" onclick="reset()">▶ 开始 / 重置</button>
+      <button class="btn-secondary" id="btnPrev" onclick="prev()" disabled>上一步</button>
+      <button class="btn-secondary" id="btnNext" onclick="next()" disabled>下一步</button>
+    </div>
+
+    <div class="visualization">
+      <div class="string-label">s · 当前 offset 下的分段（竖线为 word 边界）；窗口 [left, right_start+word_len-1]</div>
+      <div class="chars" id="charsS"></div>
+      <div class="chars indices" id="indicesS"></div>
+      <div class="state-row" id="stateRow"></div>
+      <div class="table-section" id="tableSection"></div>
+      <div class="step-desc" id="stepDesc"></div>
+      <div class="log" id="log"></div>
+      <div class="result" id="result" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script>
+    let s = '', words = [];
+    let wordLen = 0, wordCount = 0, totalLen = 0;
+    let wordFreq = {};
+    let steps = [];
+    let stepIndex = -1;
+
+    function parseWords(str) {
+      return str.split(',').map(w => w.trim()).filter(Boolean);
+    }
+
+    function countWords(arr) {
+      const f = {};
+      arr.forEach(w => { f[w] = (f[w] || 0) + 1; });
+      return f;
+    }
+
+    function buildSteps() {
+      const _s = s;
+      const _words = words;
+      if (!_s || !_words.length) return [];
+
+      const wl = _words[0].length;
+      const wc = _words.length;
+      const total = wl * wc;
+      const freq = countWords(_words);
+      const list = [];
+      const result = [];
+
+      for (let offset = 0; offset < wl; offset++) {
+        let left = offset;
+        const window = {};
+        let matched = 0;
+
+        list.push({
+          type: 'offset_start',
+          offset,
+          left,
+          right_start: offset,
+          window: {},
+          matched: 0,
+          result: result.slice(),
+          desc: `偏移 offset = ${offset}：从位置 ${offset} 开始，按步长 ${wl} 取「单词」；left = ${left}，窗口为空`
+        });
+
+        for (let right_start = offset; right_start <= _s.length - wl; right_start += wl) {
+          const word = _s.slice(right_start, right_start + wl);
+
+          if (!freq[word]) {
+            list.push({
+              type: 'clear',
+              offset,
+              left: right_start + wl,
+              right_start,
+              word,
+              window: {},
+              matched: 0,
+              result: result.slice(),
+              desc: `right_start = ${right_start}，当前段 "${word}" 不在 words 中 → 清空窗口；下一段起点 left = ${right_start + wl}（此时窗口为空，left > right_start 是预期）`
+            });
+            for (const k of Object.keys(window)) delete window[k];
+            matched = 0;
+            left = right_start + wl;
+            continue;
+          }
+
+          window[word] = (window[word] || 0) + 1;
+          matched += 1;
+
+          list.push({
+            type: 'add',
+            offset,
+            left,
+            right_start,
+            word,
+            window: Object.assign({}, window),
+            matched,
+            result: result.slice(),
+            desc: `right_start = ${right_start}，加入 "${word}"；窗口 [${left}, ${right_start + wl - 1}]，matched = ${matched}`
+          });
+
+          while (window[word] > freq[word]) {
+            const leftWord = _s.slice(left, left + wl);
+            window[leftWord]--;
+            if (window[leftWord] === 0) delete window[leftWord];
+            matched--;
+            left += wl;
+            list.push({
+              type: 'shrink',
+              offset,
+              left,
+              right_start,
+              word: leftWord,
+              window: Object.assign({}, window),
+              matched,
+              result: result.slice(),
+              desc: `窗口内 "${word}" 超出需求 → 左端弹出 "${leftWord}"，left = ${left}，matched = ${matched}`
+            });
+          }
+
+          if (matched === wc) {
+            result.push(left);
+            list.push({
+              type: 'found',
+              offset,
+              left,
+              right_start,
+              word: null,
+              window: Object.assign({}, window),
+              matched,
+              result: result.slice(),
+              desc: `matched == word_count → 记录起始索引 ${left}，当前结果 [${result.join(', ')}]`
+            });
+          }
+        }
+      }
+
+      list.push({
+        type: 'done',
+        offset: 0,
+        left: 0,
+        right_start: -1,
+        window: {},
+        matched: 0,
+        result: result.slice(),
+        desc: result.length ? `结束。答案起始索引: [${result.join(', ')}]` : '结束。无合法串联子串。'
+      });
+      return list;
+    }
+
+    function reset() {
+      s = document.getElementById('inputS').value;
+      const wordsStr = document.getElementById('inputWords').value;
+      words = parseWords(wordsStr);
+      if (!words.length) words = ['foo', 'bar'];
+      wordLen = words[0].length;
+      wordCount = words.length;
+      totalLen = wordLen * wordCount;
+      wordFreq = countWords(words);
+      steps = buildSteps();
+      stepIndex = 0;
+      document.getElementById('btnNext').disabled = steps.length <= 1;
+      document.getElementById('btnPrev').disabled = true;
+      document.getElementById('result').style.display = 'none';
+      render();
+      document.getElementById('log').innerHTML = '';
+      addLog('点击「下一步」观看按 offset 分组、扩展/收缩窗口与匹配过程');
+    }
+
+    function addLog(msg) {
+      const log = document.getElementById('log');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.textContent = msg;
+      log.appendChild(entry);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function next() {
+      if (stepIndex < steps.length - 1) {
+        if (stepIndex === 0) document.getElementById('log').innerHTML = '';
+        stepIndex++;
+        addLog(`步骤 ${stepIndex}: ${steps[stepIndex].desc}`);
+        render();
+        document.getElementById('btnPrev').disabled = false;
+        if (stepIndex >= steps.length - 1) {
+          document.getElementById('btnNext').disabled = true;
+          const st = steps[stepIndex];
+          if (st.type === 'done' && st.result && st.result.length >= 0) {
+            const el = document.getElementById('result');
+            el.style.display = 'block';
+            el.textContent = '答案起始索引: [' + st.result.join(', ') + ']';
+          }
+        }
+      }
+    }
+
+    function prev() {
+      if (stepIndex > 0) {
+        stepIndex--;
+        render();
+        document.getElementById('btnNext').disabled = false;
+        if (stepIndex <= 0) document.getElementById('btnPrev').disabled = true;
+        const log = document.getElementById('log');
+        if (log.lastChild) log.removeChild(log.lastChild);
+        document.getElementById('result').style.display = 'none';
+      }
+    }
+
+    function render() {
+      const st = steps[stepIndex];
+      if (!st) return;
+
+      const offset = st.offset;
+      const left = st.left;
+      const right_start = st.right_start;
+      const wl = wordLen;
+      const rightEnd = right_start >= 0 && st.type !== 'done' ? right_start + wl - 1 : left - 1;
+
+      const charsEl = document.getElementById('charsS');
+      const indicesEl = document.getElementById('indicesS');
+      charsEl.innerHTML = '';
+      indicesEl.innerHTML = '';
+
+      for (let i = 0; i < s.length; i++) {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = s[i];
+        const segStart = offset + Math.floor((i - offset) / wl) * wl;
+        const isSegmentEnd = (i - offset + 1) % wl === 0 || i === s.length - 1;
+        if (isSegmentEnd) span.classList.add('segment-end');
+        if (left <= i && i <= rightEnd && rightEnd >= left) {
+          span.classList.add('in-window');
+          if (i === left) span.classList.add('left-edge');
+          if (i === rightEnd && (st.type === 'add' || st.type === 'found')) span.classList.add('right-edge');
+          if (right_start >= 0 && i >= right_start && i < right_start + wl && (st.type === 'add' || st.type === 'clear')) span.classList.add('current-word');
+          if (st.type === 'clear' && right_start >= 0 && i >= right_start && i < right_start + wl) span.classList.add('invalid-word');
+        }
+        charsEl.appendChild(span);
+        const idxSpan = document.createElement('span');
+        idxSpan.className = 'char';
+        idxSpan.style.minWidth = '1.5rem';
+        idxSpan.textContent = i;
+        indicesEl.appendChild(idxSpan);
+      }
+
+      const windowEmpty = st.type === 'done' || st.left > st.right_start;
+      document.getElementById('stateRow').innerHTML = `
+        <div class="state-item"><strong>offset</strong> ${st.offset}</div>
+        <div class="state-item"><strong>left</strong> ${st.left}${windowEmpty && st.type === 'clear' ? '（下一段起点）' : ''}</div>
+        <div class="state-item"><strong>right_start</strong> ${st.right_start}${windowEmpty && st.type === 'clear' ? '（当前段，无效）' : ''}</div>
+        <div class="state-item"><strong>matched</strong> ${st.matched} / ${wordCount}</div>
+        ${windowEmpty && st.type !== 'offset_start' && st.type !== 'done' ? '<div class="state-item state-empty">窗口已清空</div>' : ''}
+        ${st.result.length ? `<div class="state-item"><strong>结果</strong> [${st.result.join(', ')}]</div>` : ''}
+      `;
+
+      const uniqWords = [...new Set(words)].sort();
+      let tableHtml = '<p style="margin-bottom:0.35rem;color:#94a3b8;">word_freq（目标） vs window（当前窗口）</p><table><tr><th>单词</th>';
+      uniqWords.forEach(w => { tableHtml += `<th class="word-col">"${w}"</th>`; });
+      tableHtml += '</tr><tr><td>word_freq</td>';
+      uniqWords.forEach(w => { tableHtml += `<td>${wordFreq[w] || 0}</td>`; });
+      tableHtml += '</tr><tr><td>window</td>';
+      uniqWords.forEach(w => {
+        const cnt = st.window[w] || 0;
+        const over = wordFreq[w] != null && cnt > wordFreq[w];
+        tableHtml += `<td class="${over ? 'over' : ''}">${cnt}</td>`;
+      });
+      tableHtml += '</tr></table>';
+      document.getElementById('tableSection').innerHTML = tableHtml;
+
+      document.getElementById('stepDesc').textContent = st.desc;
+      document.getElementById('stepDesc').className = 'step-desc' +
+        (st.type === 'shrink' ? ' shrink' : '') +
+        (st.type === 'clear' ? ' clear' : '') +
+        (st.type === 'found' ? ' found' : '');
+    }
+
+    reset();
+  </script>
+</body>
+</html>

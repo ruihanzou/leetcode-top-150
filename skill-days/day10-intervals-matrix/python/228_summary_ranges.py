@@ -70,6 +70,9 @@ class Solution:
             if i == j:
                 result.append(str(nums[i]))
             else:
+              # f 字符串格式化
+              # f"{nums[i]}->{nums[j]}" 
+              # 相当于 "{}->{}".format(nums[i], nums[j])
                 result.append(f"{nums[i]}->{nums[j]}")
             i = j + 1
 
@@ -112,9 +115,11 @@ class Solution:
     def summaryRanges_linear(self, nums: List[int]) -> List[str]:
         result = []
         n = len(nums)
+        # n == 0 时，返回空列表
         if n == 0:
             return result
 
+        # 初始化当前区间的起始值
         start = nums[0]
         for i in range(n):
             if i == n - 1 or nums[i + 1] != nums[i] + 1:

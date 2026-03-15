@@ -56,6 +56,17 @@ class Solution:
         if numRows == 1 or numRows >= len(s):
             return s
 
+        # range(numRows) is [0, 1, 2, ..., numRows-1]
+        # [] for _ in range(numRows) is a list of empty lists, each list is a row.
+        # for example, if numRows is 3, rows will be [[], [], []].
+        # in java, it is a List<List<Character>> and using add method to add the character to the row.
+        # For example:
+        # List<List<Character>> rows = new ArrayList<>();
+        # for (int i = 0; i < numRows; i++) {
+        #     rows.add(new ArrayList<>());
+        # }
+        # rows = [""] * numRows
+
         rows = [[] for _ in range(numRows)]
         cur_row = 0
         going_down = False
@@ -66,7 +77,32 @@ class Solution:
                 going_down = not going_down
             cur_row += 1 if going_down else -1
 
-        return ''.join(''.join(row) for row in rows)
+        return 
+        
+        """
+        class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1 or numRows >= len(s):
+            return s
+        
+        rows = [""] * numRows
+        currentRow = 0
+        goingDown = False
+        
+        for ch in s:
+            rows[currentRow] += ch
+            
+            if currentRow == 0 or currentRow == numRows - 1:
+                goingDown = not goingDown
+            
+            if goingDown:
+                currentRow += 1
+            else:
+                currentRow -= 1
+        
+        return "".join(rows)
+
+        """
 
     """
     ==================== 解法二：数学规律 / 按行访问 ====================

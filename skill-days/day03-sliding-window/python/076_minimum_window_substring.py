@@ -49,7 +49,7 @@ class Solution:
     2. 右移 right 扩大窗口，每加入一个字符 c，如果 window[c] == need[c]，
        说明字符 c 的需求刚好被满足，matched += 1。
 
-    3. 当 matched == required 时，窗口已经覆盖了 t 的所有字符。
+    3. 当 matched == required 时，窗口已经覆盖了 t 的所有字符。 
        此时尝试收缩 left：如果移除 s[left] 后 window[s[left]] < need[s[left]]，
        说明某个字符不再满足需求，matched -= 1。
 
@@ -145,17 +145,28 @@ class Solution:
 
         need = [0] * 128
         for c in t:
-            need[ord(c)] += 1
+          # ord 函数返回字符的 ASCII 码
+          # 这个ASCII 码是 0-127 范围内的整数
+          # Java怎么转换呢？
+          # Java中可以使用 (int) c 将字符转换为 ASCII 码
+          # 或者使用 c - '0' 将字符转换为 ASCII 码
+          # 只对t中的字符进行计数
+          need[ord(c)] += 1
 
         diff = len(t)
         left = 0
+        # float('inf') 表示正无穷大
+        # Java中可以使用 Integer.MAX_VALUE 表示正无穷大
+        # 或者使用 Double.POSITIVE_INFINITY 表示正无穷大
         min_len = float('inf')
         min_start = 0
 
         for right in range(len(s)):
             idx = ord(s[right])
             if need[idx] > 0:
+                # 如果need[idx] > 0，说明该字符在t中，diff减1
                 diff -= 1
+            # -= 1 是扩展时 need[idx] += 1 的逆操作：移除窗口右字符时把该字符"消耗"一次
             need[idx] -= 1
 
             while diff == 0:
@@ -164,9 +175,12 @@ class Solution:
                     min_start = left
 
                 left_idx = ord(s[left])
+                # += 1 是扩展时 need[idx] -= 1 的逆操作：移除窗口左字符时把该字符"还回去"
+                # s[left] 不必在 t 中：不在 t 的字符 need 初始为 0，-= 1 后为负，+= 1 后仍 <= 0，need > 0 不成立，diff 不变
                 need[left_idx] += 1
                 if need[left_idx] > 0:
                     diff += 1
                 left += 1
-
+        # s[min_start:min_start + min_len] 是返回的子串 从min_start开始 长度为min_len,
+        # 这里s[start:end]的意思是返回从start到end-1的子串
         return "" if min_len == float('inf') else s[min_start:min_start + min_len]

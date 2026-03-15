@@ -43,6 +43,12 @@ class Solution:
         n, m = len(haystack), len(needle)
 
         for i in range(n - m + 1):
+            # haystack[i:i + m] is the substring of haystack from index i to i + m - 1.
+            # needle is the substring of haystack from index i to i + m - 1.
+            # if haystack[i:i + m] == needle, return i.
+            # if haystack[i:i + m] != needle, continue.
+            # if haystack[i:i + m] == needle, return i.
+            # for java, it is haystack.substring(i, i + m).equals(needle).
             if haystack[i:i + m] == needle:
                 return i
 
@@ -50,6 +56,7 @@ class Solution:
 
     """
     ==================== 解法二：KMP 算法 ====================
+   bilibili video: https://www.bilibili.com/video/BV19Q4y1c7ko/?spm_id_from=333.337.search-card.all.click&vd_source=c0f2e486681c6e18bb62580e613206be
 
     【核心思路】
     KMP（Knuth-Morris-Pratt）算法通过预处理 needle 构建前缀函数（失败函数），

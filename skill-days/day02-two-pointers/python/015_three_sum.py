@@ -62,9 +62,16 @@ class Solution:
         result = []
         n = len(nums)
 
+        # start from the first element, and end at the third last element
+        # because we need at least three elements to form a triplet
+        # for example, if n is 5, we need to iterate from 0 to 2
+        # target = -nums[i] which i is the first element and left and right are the second and third elements
+        # not inlcude n - 2 because we need at least three elements to form a triplet
         for i in range(n - 2):
             if nums[i] > 0:
                 break
+            # if the current element is the same as the previous element, skip it
+            # for example, if nums is [0, 0, 0, 0], we need to skip the second 0
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
 

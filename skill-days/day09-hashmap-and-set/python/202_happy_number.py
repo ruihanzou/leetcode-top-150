@@ -85,14 +85,14 @@ class Solution:
     3. 无论循环经过 1 还是其他数，快慢指针都会相遇。
        相遇后只需检查相遇点是否为 1。
 
-    【举例】n = 19
-      slow: 19 → 82 → 68 → 100 → 1
-      fast: 19 → 68 → 1 → 1 → 1
-      当 slow 到达 1 时，fast 也在 1，相遇于 1 → 返回 True
+    【举例】n = 19（注意 fast 初始为 get_next(n)=82，不是 n）
+      slow: 19 → 82 → 68 → ...
+      fast: 82 → 100 → 1 → ...
+      当 fast 到达 1 时退出循环 → 返回 True
 
-      n = 2
+      n = 2（fast 初始为 get_next(2)=4）
       slow: 2 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → 20 → 4
-      fast: 2 → 16 → 58 → 145 → 20 → 16 → 58 → ...
+      fast: 4 → 16 → 58 → 145 → 20 → 16 → 58 → ...
       最终相遇于循环中某个非 1 的数 → 返回 False
 
     【时间复杂度】O(log n)
@@ -102,6 +102,7 @@ class Solution:
         def get_next(num):
             total = 0
             while num > 0:
+                # divmod 返回两个值，一个是商，一个是余数
                 num, digit = divmod(num, 10)
                 total += digit * digit
             return total

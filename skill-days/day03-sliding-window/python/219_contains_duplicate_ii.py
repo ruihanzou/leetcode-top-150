@@ -88,6 +88,7 @@ class Solution:
     """
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
         window = set()
+        # num is the value of the nums array
         for i, num in enumerate(nums):
             if num in window:
                 return True

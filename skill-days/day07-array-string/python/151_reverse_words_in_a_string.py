@@ -39,6 +39,7 @@ class Solution:
     【空间复杂度】O(n)
     """
     def reverseWords_split(self, s: str) -> str:
+        # ::-1 is a slice operation that reverses the list.
         return ' '.join(s.split()[::-1])
 
     """

@@ -149,14 +149,17 @@ class Solution:
             return line + ' ' * (maxWidth - len(line))
 
         total_chars = sum(len(w) for w in line_words)
+        # gaps is the number of gaps between the words.
         gaps = len(line_words) - 1
         total_spaces = maxWidth - total_chars
         space_per_gap = total_spaces // gaps
+        # extra_spaces is the number of extra spaces that need to be distributed.
         extra_spaces = total_spaces % gaps
 
         parts = []
         for k, word in enumerate(line_words):
             parts.append(word)
+            # if k < gaps, means there are gaps between the words.
             if k < gaps:
                 spaces = space_per_gap + (1 if k < extra_spaces else 0)
                 parts.append(' ' * spaces)

@@ -57,6 +57,7 @@ class Solution:
         merged = []
 
         for interval in intervals:
+            # if not merged 表示 merged 为空
             if not merged or merged[-1][1] < interval[0]:
                 merged.append(interval)
             else:

@@ -82,10 +82,14 @@ class Solution:
     【空间复杂度】O(n * k)
     """
     def groupAnagrams_count(self, strs: List[str]) -> List[List[str]]:
+        # defaultdict is a subclass of dict that provides a default value for a key that is not present in the dictionary.
+        # list is a mutable sequence of objects.
         groups = defaultdict(list)
         for s in strs:
             count = [0] * 26
             for c in s:
                 count[ord(c) - ord('a')] += 1
+                # tuple is hashable, so it can be used as a key in a dictionary
+                # .append is used to add an element to the end of the list.
             groups[tuple(count)].append(s)
         return list(groups.values())

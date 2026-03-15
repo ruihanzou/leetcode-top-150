@@ -74,6 +74,12 @@ class Solution:
     def canConstruct_array(self, ransomNote: str, magazine: str) -> bool:
         count = [0] * 26
         for c in magazine:
+            # why we need to subtract ord('a')?
+            # because the ascii value of 'a' is 97, and the ascii value of 'b' is 98.
+            # so we need to subtract ord('a') to get the index of the character in the array.
+            # for example, if c is 'a', then ord(c) - ord('a') is 0.
+            # if c is 'b', then ord(c) - ord('a') is 1.r
+            # so on and so forth.
             count[ord(c) - ord('a')] += 1
         for c in ransomNote:
             count[ord(c) - ord('a')] -= 1

@@ -98,7 +98,16 @@ class Solution:
             return False
 
         count = [0] * 26
+        # zip function is used to iterate over two lists simultaneously.
+        # for example, if s is "anagram" and t is "nagaram",
+        # zip(s, t) will be [('a', 'n'), ('n', 'a'), ('a', 'g'), ('g', 'a'), ('r', 'r'), ('a', 'm'), ('m', 'm')].
+        # for each iteration, cs is the current character in s and ct is the current character in t.
+        # we need to add 1 to the count of the character in s and subtract 1 from the count of the character in t.
+        # for example, if cs is 'a' and ct is 'n', then count[ord(cs) - ord('a')] += 1 will be count[0] += 1.
+        # and count[ord(ct) - ord('a')] -= 1 will be count[13] -= 1.
+        # so on and so forth.
         for cs, ct in zip(s, t):
             count[ord(cs) - ord('a')] += 1
             count[ord(ct) - ord('a')] -= 1
+            # all function is used to check if all the elements in the list are 0.
         return all(c == 0 for c in count)
