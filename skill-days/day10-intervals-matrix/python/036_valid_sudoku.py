@@ -63,18 +63,22 @@ class Solution:
     【空间复杂度】O(1) — 集合最多存储 81 个数字
     """
     def isValidSudoku_sets(self, board: List[List[str]]) -> bool:
+        # 初始化三组集合，分别记录每行、每列、每个3x3宫格中已经出现过的数字
         rows = [set() for _ in range(9)]
         cols = [set() for _ in range(9)]
         boxes = [set() for _ in range(9)]
 
         for i in range(9):
             for j in range(9):
+                # board[i][j] 表示第 i 行第 j 列的数字
                 c = board[i][j]
+                # 如果当前格子是空格，则跳过
                 if c == '.':
                     continue
 
                 box_idx = (i // 3) * 3 + j // 3
 
+                # 检查当前数字是否在对应的行/列/宫格中已存在
                 if c in rows[i] or c in cols[j] or c in boxes[box_idx]:
                     return False
 

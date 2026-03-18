@@ -59,9 +59,7 @@ class Solution:
     def gameOfLife_copy(self, board: List[List[int]]) -> None:
         m, n = len(board), len(board[0])
         original = copy.deepcopy(board)
-        directions = [(-1, -1), (-1, 0), (-1, 1),
-                      (0, -1),           (0, 1),
-                      (1, -1),  (1, 0),  (1, 1)]
+        directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
         for i in range(m):
             for j in range(n):
@@ -115,9 +113,8 @@ class Solution:
     """
     def gameOfLife_encode(self, board: List[List[int]]) -> None:
         m, n = len(board), len(board[0])
-        directions = [(-1, -1), (-1, 0), (-1, 1),
-                      (0, -1),           (0, 1),
-                      (1, -1),  (1, 0),  (1, 1)]
+        # 方向是8个方向，分别是左上，上，右上，左，右，左下，下，右下
+        directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
         for i in range(m):
             for j in range(n):
