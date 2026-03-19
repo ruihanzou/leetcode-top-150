@@ -75,6 +75,7 @@ class Solution:
                     stack.pop()
             elif part and part != '.':
                 stack.append(part)
+                # '/'.join(stack) 是将stack中的元素用'/'连接起来
         return '/' + '/'.join(stack)
 
     """

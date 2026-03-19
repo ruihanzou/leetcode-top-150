@@ -42,7 +42,15 @@ class Solution:
        - ')' → 弹出 (prev_result, prev_sign)，
                result = prev_result + prev_sign * result（合并回外层）
 
-    4. 多位数需要连续读取所有数字字符拼成完整数字。
+    4. 【')' 时三个变量的含义】以 "1+(4+5+2)" 遇到内层 ')' 为例：
+       - result：当前括号内的计算结果，如 (4+5+2)=11
+       - prev_result：进入这层括号前，外层的累计结果（遇到 '(' 时压栈的）
+         如 "1+" 时 result=1 已压栈，故 prev_result=1
+       - prev_sign：进入这层括号前，括号前面的符号（'+' 或 '-'）
+         如 "1+" 的 sign=1 已压栈，故 prev_sign=1
+       合并公式：整体 = prev_result + prev_sign * result = 1 + 1*11 = 12
+
+    5. 多位数需要连续读取所有数字字符拼成完整数字。
 
     【举例】s = "(1+(4+5+2)-3)+(6+8)"
       '(' → 压栈(0, 1), result=0, sign=1
@@ -72,24 +80,24 @@ class Solution:
         sign = 1
         i = 0
         while i < len(s):
-            ch = s[i]
-            if ch.isdigit():
+            if s[i].isdigit():
                 num = 0
                 while i < len(s) and s[i].isdigit():
                     num = num * 10 + int(s[i])
                     i += 1
                 result += sign * num
                 continue
-            elif ch == '+':
+            elif s[i] == '+':
                 sign = 1
-            elif ch == '-':
+            elif s[i] == '-':
                 sign = -1
-            elif ch == '(':
+            elif s[i] == '(':
                 stack.append(result)
                 stack.append(sign)
                 result = 0
                 sign = 1
-            elif ch == ')':
+            elif s[i] == ')':
+                # result = 当前括号内的结果；prev_result = 进括号前外层累计；prev_sign = 括号前符号
                 prev_sign = stack.pop()
                 prev_result = stack.pop()
                 result = prev_result + prev_sign * result
