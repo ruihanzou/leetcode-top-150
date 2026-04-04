@@ -99,8 +99,12 @@ class Solution:
        交织后：A → A' → B → B' → C → C'
        这样 A' = A.next，B' = B.next，即"原节点的 next 就是其复制节点"。
 
-    3. 设置 random：如果 A.random = C，那么 A'.random = C.next = C'。
-       因为 C' 就在 C 的后面。
+    3. 设置 random（直白版）：
+       - curr 是旧结点，curr.next 是它的拷贝；复制链表的 random 不能指向旧结点。
+       - curr.random 指向的仍是旧链表里的某个结点；交织后约定「旧结点的 next 就是其拷贝」，
+         所以「旧 random 目标」在新链表里对应的结点 = curr.random.next。
+       - 因此 curr.next.random = curr.random.next；不能写成 curr.next.random = curr.random。
+       例：若 A.random = C，则 A'.random = C.next = C'（C' 紧跟在 C 后面）。
 
     4. 最后拆分：将交织链表恢复为两个独立的链表。
        注意必须恢复原链表的结构（面试中常被要求）。
@@ -127,7 +131,8 @@ class Solution:
             curr.next = copy
             curr = copy.next
 
-        # Step 2: 设置复制节点的 random 指针
+        # Step 2: 设置复制结点的 random（见类文档「直白版」）
+        # curr.random 是旧 random 目标；该目标的拷贝是 curr.random.next，不是 curr.random。
         curr = head
         while curr:
             if curr.random:

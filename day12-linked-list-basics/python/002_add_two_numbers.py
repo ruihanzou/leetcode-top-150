@@ -69,8 +69,8 @@ class Solution:
             if l2:
                 total += l2.val
                 l2 = l2.next
-            carry, val = divmod(total, 10)
-            curr.next = ListNode(val)
+            carry, val = divmod(total, 10) # 返回(a // b, a % b)
+            curr.netxt = ListNode(val)
             curr = curr.next
 
         return dummy.next

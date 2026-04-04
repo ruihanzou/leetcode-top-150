@@ -95,10 +95,11 @@ class Solution:
         dummy = ListNode(0, head)
         fast = slow = dummy
 
+        # 快指针先走 n 步
         for _ in range(n):
             fast = fast.next
 
-        while fast.next:
+        while fast.next: # 快指针到达末尾时，慢指针恰好在倒数第 n 个节点的前驱位置。
             fast = fast.next
             slow = slow.next
 

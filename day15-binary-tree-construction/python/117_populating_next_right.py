@@ -119,10 +119,11 @@ class Solution:
         if not root:
             return None
 
-        cur = root
+        cur = root # 当前层的起点
         while cur:
-            dummy = Node(0)
-            tail = dummy
+            dummy = Node(0) # 下一层的虚拟头
+            tail = dummy  # 下一层链表的尾指针
+            
 
             while cur:
                 if cur.left:

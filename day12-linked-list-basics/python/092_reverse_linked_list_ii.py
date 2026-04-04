@@ -30,31 +30,68 @@ class Solution:
     ==================== 解法一：穿针引线（头插法） ====================
 
     【核心思路】
-    找到反转区间的前驱节点 pre，然后在 [left, right] 区间内，
-    不断将当前节点的下一个节点移到 pre 的后面（头插法），
-    实现原地反转。
+    先找到区间 [left, right] 左侧的前驱节点 pre，再在该区间内用「头插法」原地反转。
+
+    操作要点（整段循环只需记这一句）：
+    - pre 始终钉在「区间左边界」的外侧，循环中 pre 不变；
+    - curr 指向区间第一个节点（原 left 位置），循环中 curr 也不变；
+    - 每一轮把 curr 的下一个节点摘下来，插到 pre 的后面；
+    - 共做 right - left 次（要搬的节点数 = 区间长度减 1）。
+
+    【什么是头插法】
+    头插法：在链表的「头部一侧」反复插入节点，后插入的节点更靠近头。
+    - 在 LeetCode 206（反转整条链表）里，常见写法是不断把当前节点挪到表头；
+    - 本题是 206 的变体：表头被固定成「pre 之后的第一个位置」——每轮把 curr 后面的节点
+      插到 pre 之后，相当于对子区间 [left, right] 反复做 head insert，把 left+1 … right
+      依次挪到「反转块」的最前面，最终得到 [left … right] 的逆序。
+
+    【循环内四行代码在做什么】（按「先保存再改指针」的顺序，避免断链后找不到节点）
+    1. nxt = curr.next          本轮要搬到 pre 后面的节点；
+    2. curr.next = nxt.next     从 curr 后摘掉 nxt，curr 仍指向区间首节点；
+    3. nxt.next = pre.next      nxt 接到「当前反转块」的头（原先的 pre.next）；
+    4. pre.next = nxt           pre 指向新的反转块头。
 
     【思考过程】
-    1. 需要反转 [left, right] 之间的节点，不影响前后部分。
-       → 先找到 left 位置的前驱节点 pre。
+    1. 只反转 [left, right]，不动前后 → 先定位 left 的前驱 pre（left=1 时用 dummy）。
 
-    2. 如何原地反转？使用"头插法"：
-       每次把 curr 后面的节点摘下来，插到 pre 的后面。
-       这样每一步都把一个节点放到反转部分的最前面。
+    2. 用虚拟头 dummy 统一处理 left=1（此时 pre 即为 dummy）。
 
-    3. 使用虚拟头节点处理 left=1 的边界情况（此时 pre 就是 dummy）。
+    3. 头插次数为何是 right - left、不是 +1？见下【结点数与循环次数】。
 
-    4. 总共需要做 right - left 次"头插"操作。
+    【结点数与循环次数】
+    - right - left + 1：闭区间 [left, right] 上共有多少个节点（含两端），这是「数数」。
+    - right - left：循环里要执行多少次「把 curr.next 摘下来插到 pre 后面」，这是「搬几次」。
+    - curr 始终指向原 left 位置的节点，循环每轮只搬 curr.next，即依次搬原 left+1 … right，
+      共 (right - (left+1) + 1) = right - left 个节点；原 left 节点从不作为 nxt 被摘走，
+      在别人一次次头插到前面后，它自然落在反转段的末尾，正是逆序后它应在的位置。
+    - 小结：结点数比「要摘的 nxt 个数」多 1，多出来的就是当锚点的 curr，故循环 right - left 次。
 
-    【举例】head = [1,2,3,4,5], left = 2, right = 4
-      dummy → 1 → 2 → 3 → 4 → 5
-      pre = 节点1, curr = 节点2
+    【易错点】
+    - 循环次数不要写成 right - left + 1：那是区间结点数，+1 会多搬一次、破坏链表。
+    - 若怕混淆，可先写 moves = right - left，再 for _ in range(moves)。
 
-      第1次头插（把3移到pre后面）：
-      dummy → 1 → 3 → 2 → 4 → 5
+    【举例与图示】head = [1,2,3,4,5], left = 2, right = 4（right-left=2 次循环）
 
-      第2次头插（把4移到pre后面）：
-      dummy → 1 → 4 → 3 → 2 → 5
+      初始：定位完 pre 之后（curr 为区间首节点，整段循环中不变）
+            dummy ──→ 1 ──→ 2 ──→ 3 ──→ 4 ──→ 5
+                      ↑     ↑
+                     pre  curr
+
+      第 1 轮：nxt = curr.next，本轮搬的是节点 3
+                         nxt
+                          ↓
+            dummy ──→ 1 ──→ 2 ──→ 3 ──→ 4 ──→ 5
+                      ↑     ↑
+                     pre  curr
+            执行四行指针更新后：
+            dummy ──→ 1 ──→ 3 ──→ 2 ──→ 4 ──→ 5
+                      ↑           ↑
+                     pre        curr（仍为 2）
+
+      第 2 轮：nxt = curr.next，本轮搬的是节点 4；结束后：
+            dummy ──→ 1 ──→ 4 ──→ 3 ──→ 2 ──→ 5
+                      ↑                 ↑
+                     pre              curr（仍为 2）
 
       结果：[1,4,3,2,5]
 
@@ -65,11 +102,13 @@ class Solution:
         dummy = ListNode(0, head)
         pre = dummy
 
-        for _ in range(left - 1):
+        for _ in range(left - 1): # 找到 left 位置的前驱节点 pre，循环 left - 1 次
             pre = pre.next
 
-        curr = pre.next
-        for _ in range(right - left):
+        curr = pre.next  # 区间首节点，整段循环中不变
+        # 每轮：pre -> curr -> nxt -> ... 变为 pre -> nxt -> curr -> ...（四行指针顺序勿改）
+        moves = right - left  # 勿用 +1，+1 是区间结点数，这里是要搬的次数
+        for _ in range(moves):
             nxt = curr.next
             curr.next = nxt.next
             nxt.next = pre.next
